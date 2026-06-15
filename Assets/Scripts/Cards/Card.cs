@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Controla o comportamento visual de uma carta individual.
-/// A carta possui um ID de par, pode ser revelada/escondida
+/// A carta possui um ID de par, um sprite de frente, um sprite de verso
 /// e avisa o GameManager quando é clicada.
 /// </summary>
 public class Card : MonoBehaviour
@@ -14,9 +14,9 @@ public class Card : MonoBehaviour
     [Header("Referências Visuais")]
     [SerializeField] private Image cardImage;
 
-    [Header("Cores Temporárias")]
-    [SerializeField] private Color hiddenColor = Color.cyan;
-    [SerializeField] private Color revealedColor = Color.yellow;
+    [Header("Sprites")]
+    [SerializeField] private Sprite backSprite;
+    [SerializeField] private Sprite frontSprite;
 
     private bool isRevealed = false;
     private GameManager gameManager;
@@ -43,9 +43,13 @@ public class Card : MonoBehaviour
         Hide();
     }
 
-    public void SetPairId(int newPairId)
+    public void Setup(int newPairId, Sprite newFrontSprite, Sprite newBackSprite)
     {
         pairId = newPairId;
+        frontSprite = newFrontSprite;
+        backSprite = newBackSprite;
+
+        Hide();
     }
 
     public void OnCardClicked()
@@ -64,9 +68,9 @@ public class Card : MonoBehaviour
     {
         isRevealed = true;
 
-        if (cardImage != null)
+        if (cardImage != null && frontSprite != null)
         {
-            cardImage.color = revealedColor;
+            cardImage.sprite = frontSprite;
         }
     }
 
@@ -74,9 +78,9 @@ public class Card : MonoBehaviour
     {
         isRevealed = false;
 
-        if (cardImage != null)
+        if (cardImage != null && backSprite != null)
         {
-            cardImage.color = hiddenColor;
+            cardImage.sprite = backSprite;
         }
     }
 }

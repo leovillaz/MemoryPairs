@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Responsável por criar visualmente o tabuleiro do jogo.
-/// Cria os IDs de pares, embaralha e instancia as cartas no grid.
+/// Cria os pares usando sprites, embaralha e instancia as cartas no grid.
 /// </summary>
 public class BoardManager : MonoBehaviour
 {
@@ -11,8 +11,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform boardArea;
 
-    [Header("Quantidade de Cartas")]
-    [SerializeField] private int totalCards = 16;
+    [Header("Sprites das Cartas")]
+    [SerializeField] private Sprite cardBackSprite;
+    [SerializeField] private List<Sprite> cardFrontSprites = new List<Sprite>();
 
     private void Start()
     {
@@ -21,11 +22,11 @@ public class BoardManager : MonoBehaviour
 
     private void CreateBoard()
     {
-        List<int> pairIds = CreatePairIds();
+        List<CardData> cardsData = CreateCardsData();
 
-        ShufflePairIds(pairIds);
+        ShuffleCardsData(cardsData);
 
-        for (int cardIndex = 0; cardIndex < totalCards; cardIndex++)
+        for (int cardIndex = 0; cardIndex < cardsData.Count; cardIndex++)
         {
             GameObject newCardObject = Instantiate(cardPrefab, boardArea);
 
@@ -33,35 +34,51 @@ public class BoardManager : MonoBehaviour
 
             if (card != null)
             {
-                card.SetPairId(pairIds[cardIndex]);
+                card.Setup(
+                    cardsData[cardIndex].PairId,
+                    cardsData[cardIndex].FrontSprite,
+                    cardBackSprite
+                );
             }
         }
     }
 
-    private List<int> CreatePairIds()
+    private List<CardData> CreateCardsData()
     {
-        List<int> pairIds = new List<int>();
+        List<CardData> cardsData = new List<CardData>();
 
-        int totalPairs = totalCards / 2;
-
-        for (int pairIndex = 0; pairIndex < totalPairs; pairIndex++)
+        for (int pairIndex = 0; pairIndex < cardFrontSprites.Count; pairIndex++)
         {
-            pairIds.Add(pairIndex);
-            pairIds.Add(pairIndex);
+            Sprite frontSprite = cardFrontSprites[pairIndex];
+
+            cardsData.Add(new CardData(pairIndex, frontSprite));
+            cardsData.Add(new CardData(pairIndex, frontSprite));
         }
 
-        return pairIds;
+        return cardsData;
     }
 
-    private void ShufflePairIds(List<int> pairIds)
+    private void ShuffleCardsData(List<CardData> cardsData)
     {
-        for (int currentIndex = 0; currentIndex < pairIds.Count; currentIndex++)
+        for (int currentIndex = 0; currentIndex < cardsData.Count; currentIndex++)
         {
-            int randomIndex = Random.Range(currentIndex, pairIds.Count);
+            int randomIndex = Random.Range(currentIndex, cardsData.Count);
 
-            int temporaryValue = pairIds[currentIndex];
-            pairIds[currentIndex] = pairIds[randomIndex];
-            pairIds[randomIndex] = temporaryValue;
+            CardData temporaryValue = cardsData[currentIndex];
+            cardsData[currentIndex] = cardsData[randomIndex];
+            cardsData[randomIndex] = temporaryValue;
+        }
+    }
+
+    private class CardData
+    {
+        public int PairId { get; private set; }
+        public Sprite FrontSprite { get; private set; }
+
+        public CardData(int pairId, Sprite frontSprite)
+        {
+            PairId = pairId;
+            FrontSprite = frontSprite;
         }
     }
 }

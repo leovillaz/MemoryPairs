@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 201b612e7ede302419074af9fb8f4f4c
+guid: 6755f12bdf7dbae4e9e453132fdd1dd6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3446526980310485147
-    second: Card_Potion_0
+      213: -2384070726666322806
+    second: Card_Front_Crown_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Card_Potion_0
+      name: Card_Front_Crown_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 124
-        height: 124
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5673bcdc8f97b20d0800000000000000
-      internalID: -3446526980310485147
+      spriteID: a8c75a13e441aeed0800000000000000
+      internalID: -2384070726666322806
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Card_Potion_0: -3446526980310485147
+      Card_Front_Crown_0: -2384070726666322806
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

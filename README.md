@@ -1,66 +1,99 @@
-# MemoryPairs
+# Memory Pairs
 
-**MemoryPairs** é um projeto de estudo desenvolvido em **Unity** com **C#**, criado como parte de uma sequência de jogos mobile simples para aprendizado, prática e portfólio.
+**Memory Pairs** é um jogo mobile de memória desenvolvido na Unity, com visual em Pixel Art e tema medieval/fantasia. O objetivo é encontrar todos os pares de cartas no menor número de jogadas possível.
 
-O objetivo deste projeto é construir um jogo de memória simples, funcional e bem organizado, priorizando lógica de jogo, estrutura de código, organização de cenas, uso de prefabs e fundamentos da Unity.
-
----
-
-## Objetivo do jogo
-
-O jogador deve encontrar todos os pares de cartas escondidas no tabuleiro.
-
-A cada jogada, o jogador seleciona duas cartas:
-
-- se forem iguais, elas permanecem reveladas;
-- se forem diferentes, elas ficam visíveis por um curto tempo e depois voltam a ficar escondidas.
-
-O jogo termina quando todos os pares forem encontrados.
+O projeto foi criado como parte de uma série de estudos e desenvolvimento de jogos mobile, com foco em aprendizado prático de Unity, organização de cenas, uso de sprites, interface visual e build para Android.
 
 ---
 
-## Status atual
+## Status do projeto
 
-O projeto já possui um MVP funcional com:
-
-- criação automática do tabuleiro;
-- geração de 16 cartas;
-- organização das cartas em grid 4x4;
-- criação e embaralhamento dos pares;
-- clique/toque nas cartas;
-- comparação entre duas cartas;
-- fechamento automático de cartas diferentes;
-- bloqueio de clique durante a verificação;
-- contador de jogadas;
-- contador de pares encontrados;
-- tela de vitória;
-- botão de reiniciar;
-- botão de jogar novamente.
+✅ Jogo funcional e jogável  
+✅ Build Android testado em celular  
+✅ Interface em Pixel Art aplicada  
+✅ Menu principal funcional  
+✅ Sistema de pares funcionando  
+✅ Contador de jogadas funcionando  
+✅ Tela de vitória funcionando  
+✅ Botões de reiniciar, jogar novamente e voltar ao menu funcionando  
+✅ Orientação mobile vertical planejada para Android  
 
 ---
 
-## Tecnologias utilizadas
+## Plataforma
 
-- Unity 6
-- C#
-- Universal 2D Template
-- TextMeshPro
-- Git / GitHub
-- Git LFS
+- **Engine:** Unity 6
+- **Linguagem:** C#
+- **Plataforma principal:** Android
+- **Formato de tela:** Mobile vertical / Portrait
+- **Estilo visual:** Pixel Art
+- **Tema:** Dungeon medieval/fantasia
 
 ---
 
-## Estrutura do projeto
+## Como jogar
+
+1. Abra o jogo.
+2. Toque em **Jogar** no menu principal.
+3. Vire duas cartas por vez.
+4. Se as cartas forem iguais, o par permanece revelado.
+5. Se forem diferentes, elas viram novamente após alguns instantes.
+6. Encontre todos os pares para vencer.
+7. Ao finalizar, escolha entre **Jogar Novamente** ou **Voltar ao Menu**.
+
+---
+
+## Mecânicas implementadas
+
+- Tabuleiro 4x4 com 16 cartas.
+- 8 pares diferentes.
+- Embaralhamento automático das cartas a cada partida.
+- Controle de jogadas.
+- Controle de pares encontrados.
+- Bloqueio de clique durante a comparação de cartas.
+- Reinício da partida.
+- Tela de vitória.
+- Navegação entre Menu Principal e Jogo.
+
+---
+
+## Visual do jogo
+
+O jogo utiliza uma interface personalizada em Pixel Art, incluindo:
+
+- Background medieval para o menu principal.
+- Background medieval para a cena do jogo.
+- Logo personalizado do jogo.
+- Botões em Pixel Art para:
+  - Jogar
+  - Sair
+  - Reiniciar
+  - Jogar Novamente
+  - Voltar ao Menu
+- Header visual para o painel superior.
+- Textos do HUD renderizados com imagens:
+  - Jogadas
+  - Pares
+  - Números de 0 a 9
+  - Símbolos `:` e `/`
+
+---
+
+## Estrutura principal do projeto
 
 ```text
 Assets/
+├── Aseprite/
+│   ├── Backgrounds/
+│   ├── Cards/
+│   └── UI/
 ├── Audio/
 ├── Fonts/
 ├── Prefabs/
 │   └── CardPrefab.prefab
 ├── Scenes/
-│   ├── Game.unity
-│   └── MainMenu.unity
+│   ├── MainMenu.unity
+│   └── Game.unity
 ├── Scripts/
 │   ├── Board/
 │   │   └── BoardManager.cs
@@ -69,233 +102,132 @@ Assets/
 │   ├── Core/
 │   │   └── GameManager.cs
 │   └── UI/
-├── Settings/
-├── Sprites/
-└── UI/
-```
-
----
-
-## Cena principal
-
-A cena principal do jogo é `Game`.
-
-Estrutura básica da cena:
-
-```text
-Game
-├── Main Camera
-├── Global Light 2D
-├── GameManager
-├── BoardManager
-├── Canvas
-│   ├── TopPanel
-│   │   ├── MovesText
-│   │   ├── PairsText
-│   │   └── RestartButton
-│   │       └── RestartButtonText
-│   ├── BoardArea
-│   └── VictoryPanel
-│       ├── VictoryText
-│       ├── FinalMovesText
-│       ├── PlayAgainButton
-│       │   └── PlayAgainButtonText
-│       └── MainMenuButton
-│           └── MainMenuButtonText
-└── EventSystem
+│       ├── MainMenuManager.cs
+│       └── PixelTextRenderer.cs
+└── Sprites/
+    ├── Backgrounds/
+    ├── Cards/
+    ├── Icons/
+    └── UI/
 ```
 
 ---
 
 ## Scripts principais
 
-### Card.cs
+### GameManager.cs
 
-Responsável pelo comportamento individual de cada carta.
+Responsável pela lógica principal do jogo:
 
-Funções principais:
-
-- guardar o ID do par;
-- saber se a carta está revelada;
-- revelar a carta;
-- esconder a carta;
-- avisar o `GameManager` quando for clicada.
+- Seleção de cartas.
+- Comparação de pares.
+- Contagem de jogadas.
+- Contagem de pares encontrados.
+- Exibição da tela de vitória.
+- Reinício da partida.
+- Retorno ao menu principal.
 
 ### BoardManager.cs
 
-Responsável pela criação do tabuleiro.
+Responsável pela criação do tabuleiro:
 
-Funções principais:
+- Geração dos pares.
+- Embaralhamento das cartas.
+- Instanciação dos prefabs no grid.
+- Associação dos sprites de frente e verso das cartas.
 
-- criar a lista de pares;
-- duplicar os IDs dos pares;
-- embaralhar os IDs;
-- instanciar as cartas no `BoardArea`;
-- configurar cada carta com seu respectivo `Pair ID`.
+### Card.cs
 
-### GameManager.cs
+Responsável pelo comportamento individual de cada carta:
 
-Responsável pela lógica principal do jogo.
+- Guardar o ID do par.
+- Exibir frente e verso.
+- Avisar o GameManager quando a carta for clicada.
 
-Funções principais:
+### MainMenuManager.cs
 
-- receber a carta clicada;
-- guardar a primeira carta selecionada;
-- guardar a segunda carta selecionada;
-- comparar os pares;
-- contar jogadas;
-- contar pares encontrados;
-- bloquear cliques durante a verificação;
-- esconder cartas diferentes após um pequeno intervalo;
-- detectar vitória;
-- exibir o painel de vitória;
-- reiniciar a partida.
+Responsável pelos botões do menu principal:
+
+- Iniciar o jogo.
+- Sair do aplicativo.
+
+### PixelTextRenderer.cs
+
+Responsável por renderizar textos numéricos do HUD usando sprites individuais, em vez de texto comum.
 
 ---
 
-## Mecânicas implementadas
+## Cenas
 
-### Seleção de cartas
+### MainMenu
 
-O jogador pode clicar em uma carta fechada para revelá-la.
+Cena inicial do jogo, contendo:
 
-A carta não decide sozinha se deve abrir. Ela apenas informa ao `GameManager` que foi clicada. O `GameManager` valida se o clique é permitido e então manda a carta revelar.
+- Background principal.
+- Logo Memory Pairs.
+- Botão Jogar.
+- Botão Sair.
 
-### Comparação de pares
+### Game
 
-Quando duas cartas são selecionadas:
+Cena principal do jogo, contendo:
 
-- o contador de jogadas aumenta;
-- o jogo compara os `Pair IDs`;
-- se forem iguais, as cartas permanecem abertas;
-- se forem diferentes, o jogo aguarda um tempo e esconde as cartas novamente.
-
-### Bloqueio de clique
-
-Durante a verificação de duas cartas diferentes, o jogo bloqueia novos cliques.
-
-Isso evita bugs como:
-
-- revelar uma terceira carta durante a espera;
-- deixar cartas abertas sem serem registradas;
-- quebrar a lógica de comparação.
-
-### Vitória
-
-Quando todos os pares são encontrados, o jogo exibe o `VictoryPanel`.
-
-O painel mostra:
-
-- mensagem de vitória;
-- quantidade final de jogadas;
-- botão para jogar novamente;
-- botão para voltar ao menu, ainda pendente de implementação completa.
+- Background da dungeon.
+- Painel superior com jogadas, pares e botão reset.
+- Tabuleiro 4x4.
+- Tela de vitória.
 
 ---
 
-## Interface atual
+## Build Android
 
-Durante o jogo, o painel superior mostra:
+O projeto já foi configurado para Android usando o sistema de **Build Profiles** da Unity 6.
+
+Configurações principais:
 
 ```text
-Jogadas: 0     Pares: 0 / 8     Reiniciar
+Platform: Android
+Orientation: Portrait
+Scenes:
+0 - MainMenu
+1 - Game
 ```
 
-Ao vencer, o painel de vitória mostra:
-
-```text
-Você venceu!
-Jogadas: X
-Jogar novamente
-Voltar ao menu
-```
+O jogo foi testado em celular Android e está funcional.
 
 ---
 
-## Estado atual do MVP
+## Próximas melhorias possíveis
 
-O MVP já está jogável.
+Algumas melhorias planejadas ou sugeridas para versões futuras:
 
-Funcionalidades concluídas:
-
-- [x] Criar projeto Unity 2D
-- [x] Criar estrutura de pastas
-- [x] Criar cena `Game`
-- [x] Criar cena `MainMenu`
-- [x] Criar Canvas para mobile
-- [x] Criar painel superior
-- [x] Criar área do tabuleiro
-- [x] Criar painel de vitória
-- [x] Criar prefab de carta
-- [x] Configurar grid 4x4
-- [x] Criar script `Card.cs`
-- [x] Criar script `BoardManager.cs`
-- [x] Criar script `GameManager.cs`
-- [x] Criar cartas automaticamente
-- [x] Criar pares automaticamente
-- [x] Embaralhar pares
-- [x] Clicar em cartas
-- [x] Comparar pares
-- [x] Fechar cartas diferentes
-- [x] Manter cartas iguais abertas
-- [x] Contar jogadas
-- [x] Contar pares encontrados
-- [x] Detectar vitória
-- [x] Exibir tela de vitória
-- [x] Reiniciar partida
+- Ajuste fino de layout para diferentes proporções de tela Android.
+- Animação de virar carta.
+- Efeitos sonoros.
+- Música de fundo.
+- Tela de créditos.
+- Sistema de pontuação.
+- Melhor tempo / recorde de jogadas.
+- Seleção de dificuldade.
+- Novos temas de cartas.
+- Ícone final do aplicativo Android.
 
 ---
 
-## Próximas melhorias
+## Objetivo do projeto
 
-Possíveis melhorias para as próximas etapas:
-
-- [ ] Fazer o botão `Voltar ao menu` funcionar
-- [ ] Criar tela inicial real na cena `MainMenu`
-- [ ] Melhorar layout da UI
-- [ ] Substituir cores temporárias por sprites reais
-- [ ] Criar arte PixelArt no Aseprite
-- [ ] Adicionar sons de clique
-- [ ] Adicionar som de par encontrado
-- [ ] Adicionar som de erro
-- [ ] Adicionar animação de virar carta
-- [ ] Adicionar tela de configurações
-- [ ] Adicionar níveis de dificuldade
-- [ ] Adicionar cronômetro
-- [ ] Salvar melhor pontuação local
-- [ ] Preparar build Android
-
----
-
-## Objetivo de aprendizado
-
-Este projeto foi criado para estudar conceitos fundamentais de desenvolvimento de jogos com Unity e C#, incluindo:
-
-- organização de projeto;
-- uso de cenas;
-- uso de prefabs;
-- componentes de UI;
-- eventos de botão;
-- comunicação entre scripts;
-- separação de responsabilidades;
-- listas;
-- embaralhamento;
-- controle de estado;
-- coroutines;
-- lógica de vitória;
-- reinício de cena;
-- desenvolvimento incremental.
+Este projeto tem como objetivo servir como estudo prático de desenvolvimento de jogos mobile com Unity, abordando desde a criação da lógica básica até a construção de uma interface visual mais completa e a geração de build para Android.
 
 ---
 
 ## Autor
 
-Desenvolvido por **Leandro Vilela** como projeto de estudo em Unity e C#.
+Desenvolvido por **Leandro Vilela**.
+
+GitHub: [@leovillaz](https://github.com/leovillaz)
 
 ---
 
-## Observação
+## Licença
 
-Este projeto faz parte de uma sequência de jogos simples para aprendizado e portfólio.
-
-O foco inicial não é arte avançada, monetização ou publicação, mas sim construir uma base sólida de lógica, organização e desenvolvimento de jogos completos em pequena escala.
+Este projeto é um estudo pessoal. A licença pode ser definida futuramente conforme a evolução do projeto.

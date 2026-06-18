@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private TMP_Text finalMovesText;
 
+    [SerializeField] private PixelTextRenderer movesPixelText;
+    [SerializeField] private PixelTextRenderer pairsPixelText;
+
     private Card firstSelectedCard;
     private Card secondSelectedCard;
 
@@ -155,6 +158,11 @@ public class GameManager : MonoBehaviour
         {
             movesText.text = "Jogadas: " + movesCount;
         }
+
+        if (movesPixelText != null)
+        {
+            movesPixelText.SetText(": " + movesCount);
+        }
     }
 
     private void UpdatePairsText()
@@ -162,6 +170,11 @@ public class GameManager : MonoBehaviour
         if (pairsText != null)
         {
             pairsText.text = "Pares: " + matchedPairsCount + " / " + totalPairs;
+        }
+
+        if (pairsPixelText != null)
+        {
+            pairsPixelText.SetText(": " + matchedPairsCount + "/" + totalPairs);
         }
     }
 
